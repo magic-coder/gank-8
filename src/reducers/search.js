@@ -47,7 +47,7 @@ export function search(state = initData, action) {
         case 'RECEIVE_HOT_SEARCH':
             return {
                 ...state
-            }
+            };
 
         default:
             return state;

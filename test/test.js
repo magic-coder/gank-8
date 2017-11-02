@@ -17,7 +17,7 @@ test('async/await 函数测试', async () => {
 
 test('测试搜索action === RECEIVE_HOT_SEARCH', () => {
     expect(receiveHotSearch)
-})
+});
 
 test('adds 1 + 2 to equal 3', () => {
     expect(sum(1, 2)).toBe(3);

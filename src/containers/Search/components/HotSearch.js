@@ -5,7 +5,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const HotSearch = (props) => {
-    const { hotText, hotClick, currentHot } = props
+    const { hotText, hotClick, currentHot } = props;
     return (
         <a className="style_span"
            onClick={hotClick}
@@ -14,10 +14,10 @@ const HotSearch = (props) => {
             {hotText}
         </a>
     )
-}
+};
 HotSearch.propTypes = {
     hotText: PropTypes.string,
     hotClick: PropTypes.func,
     currentHot: PropTypes.string
-}
+};
 export default HotSearch

@@ -2,17 +2,14 @@
  * Created by Administrator on 2016/7/2.
  */
 import * as type from "../actions/type";
-// 初始化状态
-let initNavList = {
-    historyArray: []
-};
 
-export function home(state = initNavList, action) {
+export function day_content(state, action) {
     switch (action.type) {
-        case type.RECEIVE_HISTORY:
+        case type.RECEIVE_DAY_CONTENT:
+            console.log("day_content", action.day_content);
             return {
                 ...state,   //三个点是展开符
-                historyArray: action.historyArray
+                day_content: action.day_content
             };
         default:
             return {...state};

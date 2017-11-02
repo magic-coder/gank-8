@@ -4,6 +4,7 @@ var autoprefixer = require('autoprefixer');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var argv = require('yargs').argv
 const webpackServerConfig = require('./webpackServerConfig');
+var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 //判断当前运行环境是开发模式还是生产模式
 const nodeEnv = process.env.NODE_ENV || 'development';
@@ -17,34 +18,37 @@ var plugins = [
     }),
     new webpack.DefinePlugin({
         // 定义全局变量
-        'process.env':{
+        'process.env': {
             'NODE_ENV': JSON.stringify(nodeEnv)
         }
-    })
-]
+    }),
+    new OpenBrowserPlugin({url: `http://${webpackServerConfig.host}:${webpackServerConfig.port}`})
+
+];
+
 var app = ['./entry'];
 if (isPro) {
-  plugins.push(
-      new ExtractTextPlugin({
-          filename: 'styles.css'
-      }),
-      new webpack.LoaderOptionsPlugin({
-          minimize: true,
-          debug: false
-      }),
-      new webpack.optimize.UglifyJsPlugin({
-          sourceMap: true,
-          comments: false,
-          ie8: true
-      })
-  )
+    plugins.push(
+        new ExtractTextPlugin({
+            filename: 'styles.css'
+        }),
+        new webpack.LoaderOptionsPlugin({
+            minimize: true,
+            debug: false
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            sourceMap: true,
+            comments: false,
+            ie8: true
+        })
+    )
 } else {
     app.unshift('react-hot-loader/patch', `webpack-dev-server/client?http://${webpackServerConfig.host}:${webpackServerConfig.port}`, 'webpack/hot/only-dev-server')
     plugins.push(
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(),
         new webpack.NoEmitOnErrorsPlugin()
-  )
+    )
 }
 
 module.exports = {
@@ -89,12 +93,25 @@ module.exports = {
         }, {
             test: /\.(less|css)$/,
             use: isPro ? ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ["css-loader", "less-loader"]
-                }) : ["style-loader", "css-loader", "less-loader"]
+                fallback: 'style-loader',
+                use: ["css-loader", "less-loader"]
+            }) : ["style-loader", "css-loader", "less-loader"]
         }, {
             test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
             use: ['file-loader?limit=1000&name=files/[md5:hash:base64:10].[ext]']
-        }]
+        },
+            {
+                test: /\.(js|jsx)$/,
+                loader: require.resolve('babel-loader'),
+                options: {
+                    plugins: [
+                        ['import', [{libraryName: 'antd', style: true}]],  // import less
+                    ],
+                    // This is a feature of `babel-loader` for webpack (not Babel itself).
+                    // It enables caching results in ./node_modules/.cache/babel-loader/
+                    // directory for faster rebuilds.
+                    cacheDirectory: true,
+                },
+            }]
     }
 };

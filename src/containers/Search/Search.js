@@ -29,7 +29,7 @@ export default class Search extends React.Component {
         }
     }
     componentWillMount() {
-        console.log('进入搜索页面')
+        console.log('进入搜索页面');
         this.props.receiveHotSearch()
     }
     upDateValue(value) {
@@ -39,8 +39,8 @@ export default class Search extends React.Component {
         this.setState(() => { return {currentHot: text} })
     }
     render() {
-        const { hotData=[] } = this.props
-        const { currentHot } = this.state
+        const { hotData=[] } = this.props;
+        const { currentHot } = this.state;
         return (
             <div style={{height: '100vh'}}>
                 <Header handleClick={this.props.currentAnimate}
@@ -71,4 +71,4 @@ export default class Search extends React.Component {
 }
 Search.propTypes = {
     hotData: PropTypes.array
-}
+};

@@ -12,7 +12,7 @@ const search = require('./files/search_1.png')
 export default class Header extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.handleChange = this.handleChange.bind(this)
     }
 
@@ -21,12 +21,12 @@ export default class Header extends React.Component {
     }
 
     render() {
-        const { handleClick, currentHot } = this.props
+        const { handleClick, currentHot } = this.props;
         return (
             <div className="style_body">
                 <div className="style_main">
                     <Link to="/" className="style_a" onClick={() => handleClick('right')}>
-                        <img src={back} className="style_a_img" />
+                        <img src={back} classNam e="style_a_img" />
                     </Link>
                     <div className="style_div_content">
                         <img src={search} className="style_div_img" />
@@ -47,4 +47,4 @@ Header.propTypes = {
     handleClick: PropTypes.func.isRequired,
     currentHot: PropTypes.string.isRequired,
     upDateValue: PropTypes.func.isRequired
-}
+};

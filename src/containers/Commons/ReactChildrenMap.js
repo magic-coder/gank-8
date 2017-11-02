@@ -20,7 +20,7 @@ export default class ReactChildrenMap extends React.PureComponent {
 }
 ReactChildrenMap.propTypes = {
     children: PropTypes.array
-}
+};
 function warningFunc(children) {
     if (typeof children !== 'object') {
         warning(false, '你可能传入空元素，请传入react组件或者是DOM节点，children：%s')

@@ -4,9 +4,8 @@
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
-const errorOverlayMiddleware = require('react-error-overlay/middleware');
+// const errorOverlayMiddleware = require('react-error-overlay/middleware');
 const webpackServerConfig = require('./webpackServerConfig');
-var proxy = require('http-proxy-middleware');
 
 new WebpackDevServer(webpack(config), {
     hot: true,
@@ -21,13 +20,7 @@ new WebpackDevServer(webpack(config), {
         chunks: false
     },
     setup(app) {
-        app.use(errorOverlayMiddleware());
-        if (process.env.NODE_ENV !== 'production') {
-            app.use('/book/*', proxy({
-                target: 'https://www.easy-mock.com/mock/593611b991470c0ac101d474',
-                secure: false
-            }))
-        }
+        // app.use(errorOverlayMiddleware());
     }
 }).listen(webpackServerConfig.port, webpackServerConfig.host, function (err, result) {
     if (err) {

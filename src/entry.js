@@ -3,13 +3,12 @@ import 'core-js/es6/set' //支持Set
 import 'core-js/es6/string' //支持includes()
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore, applyMiddleware, combineReducers } from 'redux'
-import { Provider } from 'react-redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
+import {createStore, applyMiddleware, combineReducers} from 'redux'
+import {Provider} from 'react-redux'
+import {composeWithDevTools} from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
-import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
-import { AppContainer } from 'react-hot-loader'
-import App from './App'
+import {ConnectedRouter, routerReducer, routerMiddleware} from 'react-router-redux'
+import CRouter from './routes';
 import createHistory from 'history/createBrowserHistory'
 import rootReducer from './reducers/index'
 
@@ -40,19 +39,11 @@ const store = createStore(
 
 const render = Component =>
     ReactDOM.render(
-        <AppContainer>
             <Provider store={store}>
-                <Component />
+                <Component/>
             </Provider>
-        </AppContainer>,
+        ,
         document.getElementById('root')
     );
 
-render(App);
-
-if(module.hot) {
-    module.hot.accept('./App', () => {
-        const NextRootContainer = require('./App').default;
-        render(NextRootContainer)
-    })
-}
+render(CRouter);
