@@ -5,12 +5,10 @@ import React, {Component} from 'react';
 import {Menu, Icon, Layout, Badge, Popover} from 'antd';
 import screenfull from 'screenfull';
 import SiderCustom from './SiderCustom';
-import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom';
 
 const {Header} = Layout;
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 
 class HeaderCustom extends Component {
     state = {
@@ -30,6 +28,9 @@ class HeaderCustom extends Component {
         }
     };
 
+    search = () => {
+
+    };
 
     popoverHide = () => {
         this.setState({
@@ -64,9 +65,14 @@ class HeaderCustom extends Component {
                     style={{lineHeight: '64px', float: 'right'}}
                     onClick={this.menuClick}
                 >
+                    <Menu.Item key="search" onClick={this.search}>
+                        <Link to={'/search'}> <Icon type="search" onClick={this.search}/></Link>
+                    </Menu.Item>
+
                     <Menu.Item key="full" onClick={this.screenFull}>
                         <Icon type="arrows-alt" onClick={this.screenFull}/>
                     </Menu.Item>
+
 
                 </Menu>
                 <style>{`
@@ -81,7 +87,7 @@ class HeaderCustom extends Component {
 }
 
 const mapStateToProps = state => {
-    const { responsive = {data: {}} } = state.global;
+    const {responsive = {data: {}}} = state.global;
     return {responsive};
 };
 

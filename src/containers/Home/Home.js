@@ -16,7 +16,7 @@ import Header from './components/Header'
 import ContentItem from './components/ContentItem';
 /*files*/
 const search = require('./files/search.svg');
-import {Spin} from 'antd';
+import {Row, Col,Spin, Pagination, BackTop} from 'antd';
 import './styles/home.less'
 
 /**
@@ -37,20 +37,26 @@ export default class Home extends React.Component {
         //构造函数用法
         //常用来绑定自定义函数，切记不要在这里或者组件的任何位置setState，state全部在reducer初始化，相信对开发的后期很有帮助
         //例子：this.myfunction = this.myfunction.bind(this)
-        this.handleItemClick = this.handleItemClick.bind(this)
+        this.handleItemClick = this.handleItemClick.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
-        const {historyArray} = nextProps;
+        console.log(" Home nextProps", nextProps);
 
     }
 
     componentWillMount() {
         const {historyArray} = this.props;
         if (historyArray.length === 0) {
-            this.props.getHistory();
-        }
+            this.props.getHistory(1);
 
+        }
+    }
+
+    onChange(page) {
+        this.props.getHistory(page);
+        this.refs.myBackTop.scrollToTop();
     }
 
     handleItemClick(elem) {
@@ -64,37 +70,51 @@ export default class Home extends React.Component {
             state: data// 相当于post
         };
         this.props.history.push(path);
-        console.log("push", path);
+        // console.log("push", path);
     }
 
     render() {
         const {historyArray} = this.props;
-        //还可以通过自定义样式传递给组件
-        let bgClass = {background: '#00bb9c'}; //定义一个背景色的变量
-
+        let size = historyArray.length / 5;
+        const special = [];
+        for (let i = 0; i < size; i++) {
+            special.push(historyArray.slice(5 * i, 5 * (i + 1)));
+        }
+        const imgsTags = special.map(v1 => (
+            v1.map(elem => {
+                return (
+                    <div className="gutter-box" onClick={() => this.openSpecial(v2)}>
+                        <ContentItem
+                            _id={elem._id}
+                            title={elem.title}
+                            content={elem.content}
+                            created_at={elem.created_at}
+                            handleClick={() => this.handleItemClick(elem)}
+                        />
+                    </div>
+                )
+            })
+        ));
 
         return (
-            <div>
-                <div className="style_div" >
-                    {window.isEmpty(historyArray) ?
-                        <Spin size="large">加载中....</Spin> :
-                        <ul className="style_ul">
-                            {
-                                historyArray.map((elem, index) => {
-                                    return (
-                                        <ContentItem
-                                            _id={elem._id}
-                                            title={elem.title}
-                                            content={elem.content}
-                                            created_at={elem.created_at}
-                                            handleClick={() => this.handleItemClick(elem)}
-                                        />
-                                    )
-                                })
-
-                            }
-                        </ul>
+            <div className="gutter-example button-demo">
+                <Row gutter={12}>
+                    {
+                        imgsTags.map(imgsTag => {
+                            return ( <Col className="gutter-row" md={6}>
+                                {imgsTag}
+                            </Col>);
+                        })
                     }
+                </Row>
+                <style>{`
+                    .ant-card-body img {
+                        cursor: pointer;
+                    }
+                `}</style>
+                <BackTop ref="myBackTop"/>
+                <div style={{float: 'left'}}>
+                    <Pagination defaultCurrent={1} total={500} onChange={this.onChange}/>
                 </div>
             </div>
         )

@@ -78,17 +78,14 @@ class SiderCustom extends Component {
                     <Menu.Item key="/main">
                         <Link to={'/'}><Icon type="laptop"/><span className="nav-text">首页</span></Link>
                     </Menu.Item>
-                    <Menu.Item key="/android">
-                        <Link to={'/android'}><Icon type="android-o"/><span className="nav-text">android</span></Link>
+                    <Menu.Item key="/Android">
+                        <Link to={'/Android'}><Icon type="android-o"/><span className="nav-text">android</span></Link>
                     </Menu.Item>
-                    <Menu.Item key="/ios">
-                        <Link to={'/ios'}><Icon type="apple"/><span className="nav-text">ios</span></Link>
+                    <Menu.Item key="/IOS">
+                        <Link to={'/IOS'}><Icon type="apple"/><span className="nav-text">ios</span></Link>
                     </Menu.Item>
                     <Menu.Item key="/meizhi">
                         <Link to={'/meizhi'}><Icon type="heart"/><span className="nav-text">妹纸</span></Link>
-                    </Menu.Item>
-                    <Menu.Item key="/search">
-                        <Link to={'/search'}><Icon type="search"/><span className="nav-text">搜索</span></Link>
                     </Menu.Item>
                 </Menu>
                 <style>

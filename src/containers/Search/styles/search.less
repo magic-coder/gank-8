@@ -1,6 +1,7 @@
 .style_body {
   background: #fff;
   width: 100%;
+  margin-top: 0.2rem;
   border-bottom: 1px solid #eee;
   .style_main {
     padding-top: 0.833rem;
@@ -24,9 +25,9 @@
       position: relative;
       .style_div_img {
         position: absolute;
-        left: 0.1667rem;
+        left: 0.3667rem;
         width: 2.0833rem;
-        height: auto;
+        height: 0.36rem;
         top: 0.36rem;
       }
       .style_div_input {
@@ -72,3 +73,32 @@
     color: #646464;
   }
 }
+
+.search-parent-layout {
+  display: flex;
+  width: 100%;
+  height: auto;
+  margin-top: 0.5rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  background: #e5e5e5;
+  border-radius: 0.2rem;
+  align-items: center; /* 垂直居中 */
+  justify-content: center; /* 水平居中 */
+  .search-child-type {
+    margin-left: 0.2rem;
+    color: #444;
+    display:block;                     /*内联对象需加*/
+    word-break:keep-all;           /* 不换行 */
+    white-space:nowrap;          /* 不换行 */
+    overflow:hidden;               /* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow:ellipsis;         /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+  }
+  .search-child-select {
+    margin-left: 0.4rem;
+  }
+  .search-child-input {
+    margin-left: 0.4rem;
+  }
+}
+

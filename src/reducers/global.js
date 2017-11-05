@@ -27,10 +27,13 @@ export const global = (state = initState, action) => {
             };
         case type.RECEIVE_DATA:
         case type.REQUEST_DATA:
-            return {
+            let handleData2 = handleData(state[action.category], action);
+            let newVar = {
                 ...state,
-                [action.category]: handleData(state[action.category], action)
+                [action.category]: handleData2
             };
+            // console.log("newVar", newVar);
+            return newVar;
         default:
             return {...state};
     }

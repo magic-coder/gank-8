@@ -41,9 +41,9 @@ const receiveHistory = (response) => ({
     historyArray: response.results
 });
 
-export const getHistory = () => async (dispatch, getState) => {
+export const getHistory = (page) => async (dispatch, getState) => {
     try {
-        let response = await instance.get(`/history/content/10/1`);
+        let response = await instance.get(`/history/content/10/${page}`);
         console.log('history: ', response);
         await dispatch(receiveHistory(response.data));
         return response

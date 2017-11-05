@@ -6,6 +6,8 @@ const receiveContent = (response) => ({
     day_content: response
 });
 //http://gank.io/api/day/2015/08/07
+//http://gank.io/api/data/%E7%A6%8F%E5%88%A9/10/1
+
 export const getContent = (day) => async (dispatch, getState) => {
     try {
         let response = await instance.get(`/day/${day}`);
