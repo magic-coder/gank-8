@@ -3,5 +3,5 @@
  */
 module.exports = {
     host: 'localhost',
-    port: 3011
-}
+    port: 3001
+};
