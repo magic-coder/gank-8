@@ -2,7 +2,7 @@
  * Created by yongyuehuang on 2017/6/7.
  */
 import * as type from './type.js'
-import instance from 'utils/instance'
+import instance from '../utils/instance'
 
 export const currentAnimate = (cls) => ({
     type: 'CURRENT_ANIMATE',
@@ -21,6 +21,16 @@ export const receiveData = (data, category) => ({
 });
 
 
+export const getHistory = (page, stateName) => async (dispatch) => {
+    try {
+        dispatch(requestData(stateName));
+        let response = await instance.get(`/history/content/10/${page}`);
+        await dispatch(receiveData(response.data.results, stateName));
+        return response;
+    } catch (error) {
+        console.log('error: ', error)
+    }
+};
 export const getMeiZhi = (page, stateName) => async (dispatch) => {
     try {
         dispatch(requestData(stateName));

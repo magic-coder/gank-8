@@ -9,13 +9,13 @@ import {Switch,Button} from 'antd';
 
 
 /*actions*/
-import * as day_content from 'actions/day_content'
+import {getContent} from '../../actions/day_content'
 
-@connect(
-    state => ({...state.day_content}),
-    dispatch => bindActionCreators({...day_content}, dispatch)
-)
-export default class DayContent extends React.Component {
+// @connect(
+//     state => ({...state.day_content}),
+//     dispatch => bindActionCreators({...day_content}, dispatch)
+// )
+ class DayContent extends React.Component {
 
     constructor(props) {
         super(props);
@@ -58,3 +58,13 @@ DayContent.propTypes = {
     day_content: PropTypes.string.isRequired,
     getContent: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = state => {
+    const {day_content} = state.global;
+    return {day_content};
+};
+const mapDispatchToProps = dispatch => ({
+    getContent: bindActionCreators(getContent, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DayContent);

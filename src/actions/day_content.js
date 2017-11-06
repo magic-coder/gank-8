@@ -1,4 +1,4 @@
-import instance from 'utils/instance'
+import instance from '../utils/instance'
 import * as type from './type.js'
 
 const receiveContent = (response) => ({

@@ -7,9 +7,9 @@ import {Link} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import {Row, Col, Card, Pagination, BackTop} from 'antd';
 import PropTypes from 'prop-types'
-import {getAndroid} from '../../actions/global'
+import {getIOS} from '../../actions/global'
 
-class Android extends React.Component {
+class iOS extends React.Component {
     state = {
         gallery: null,
         datas: [],
@@ -21,22 +21,22 @@ class Android extends React.Component {
     }
 
     componentDidMount() {
-        const {getAndroid} = this.props;
-        getAndroid(1, "android_data");
+        const {getIOS} = this.props;
+        getIOS(1, "ios_data");
 
     }
 
     componentWillReceiveProps(nextProps) {
-        const {android_data} = nextProps;
-        if (!window.isEmpty(android_data) && !window.isEmpty(android_data.data)) {
+        const {ios_data} = nextProps;
+        if (!window.isEmpty(ios_data) && !window.isEmpty(ios_data.data)) {
             this.setState({
-                datas: android_data.data
+                datas: ios_data.data
             });
         }
     }
 
     onChange(page) {
-        this.props.getAndroid(page, "android_data");
+        this.props.getIOS(page, "ios_data");
         this.refs.myBackTop.scrollToTop();
     }
 
@@ -99,17 +99,17 @@ class Android extends React.Component {
     }
 }
 
-Android.propTypes = {
-    android_data: PropTypes.string.isRequired,
-    getAndroid: PropTypes.func.isRequired,
+iOS.propTypes = {
+    ios_data: PropTypes.string.isRequired,
+    getIOS: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => {
-    const {android_data = {data: {}}} = state.global;
-    return {android_data};
+    const {ios_data = {data: {}}} = state.global;
+    return {ios_data};
 };
 const mapDispatchToProps = dispatch => ({
-    getAndroid: bindActionCreators(getAndroid, dispatch)
+    getIOS: bindActionCreators(getIOS, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Android);
+export default connect(mapStateToProps, mapDispatchToProps)(iOS);

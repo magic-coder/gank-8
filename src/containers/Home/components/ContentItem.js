@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Card} from 'antd';
 
-const cheerio = require('cheerio')
+const cheerio = require('cheerio');
 
 const ContentItem = (props) => {
     let {_id, title, content, created_at, handleClick} = props;

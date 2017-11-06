@@ -10,13 +10,13 @@ import PhotoswipeUIDefault from 'photoswipe/dist/photoswipe-ui-default';
 import 'photoswipe/dist/photoswipe.css';
 import 'photoswipe/dist/default-skin/default-skin.css';
 import PropTypes from 'prop-types'
-import * as global from 'actions/global'
+import {getMeiZhi} from '../../actions/global'
 
-@connect(
-    state => ({...state.global}),
-    dispatch => bindActionCreators({...global}, dispatch)
-)
-export default class Gallery extends React.Component {
+// @connect(
+//     state => ({...state.global}),
+//     dispatch => bindActionCreators({...global}, dispatch)
+// )
+ class Gallery extends React.Component {
     state = {
         gallery: null,
         meizi: [],
@@ -182,7 +182,17 @@ export default class Gallery extends React.Component {
         )
     }
 }
-Gallery.propTypes = {
-    meizi_data: PropTypes.string.isRequired,
-    getMeiZhi: PropTypes.func.isRequired,
+// Gallery.propTypes = {
+//     meizi_data: PropTypes.string.isRequired,
+//     getMeiZhi: PropTypes.func.isRequired,
+// };
+
+const mapStateToProps = state => {
+    const {meizi_data = {data: {}}} = state.global;
+    return {meizi_data};
 };
+const mapDispatchToProps = dispatch => ({
+    getMeiZhi: bindActionCreators(getMeiZhi, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Gallery);

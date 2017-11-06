@@ -5,7 +5,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 /*const*/
-import * as con from 'utils/const'
+import * as con from '../../../utils/const'
 
 // 自定义图片路径数组
 const navImage = {

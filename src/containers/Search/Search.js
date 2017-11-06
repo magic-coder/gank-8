@@ -7,18 +7,18 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
 /*actions*/
-import * as global from 'actions/global'
+import {searchAction} from '../../actions/global'
 import './styles/search.less'
 import {Row, Col, Menu, Dropdown, BackTop, Pagination, Button, Input, Card} from 'antd';
 
 const SearchInput = Input.Search;
 
 
-@connect(
-    state => ({...state.global}),
-    dispatch => bindActionCreators({...global}, dispatch)
-)
-export default class Search extends React.Component {
+// @connect(
+//     state => ({...state.global}),
+//     dispatch => bindActionCreators({...global}, dispatch)
+// )
+ class Search extends React.Component {
     state = {
         key: 'Android',
         category: 'all',
@@ -173,3 +173,12 @@ export default class Search extends React.Component {
 //     search_data: PropTypes.object.isRequired,
 //     searchAction: PropTypes.func.isRequired
 // };
+const mapStateToProps = state => {
+    const {search_data = {data: {}}} = state.global;
+    return {search_data};
+};
+const mapDispatchToProps = dispatch => ({
+    searchAction: bindActionCreators(searchAction, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

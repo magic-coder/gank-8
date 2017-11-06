@@ -12,13 +12,12 @@ import CRouter from './routes';
 import createHistory from 'history/createBrowserHistory'
 import rootReducer from './reducers/index'
 
-var FastClick = require('fastclick');
-
 //按模块导入lodash，可以有效减小vendor.js的大小
 import isEmpty from 'lodash/isEmpty'
 import isEqual from 'lodash/isEqual'
 import debounce from 'lodash/debounce'
 import isArray from 'lodash/isArray'
+var FastClick = require('fastclick');
 
 window.isEmpty = isEmpty;
 window.isEqual = isEqual;

@@ -1,44 +1,22 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux';
 import {Route, Router, Switch} from 'react-router-dom'
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import createHistory from 'history/createHashHistory'
-
-const history = createHistory();
-
 /*
  全局导入less
  */
 import '../app.less'
 
-import * as global from '../actions/global'
-import asyncComponent from '../AsyncComponent'
 
-import App from '../app'
+import App from '../App'
 import Home from '../containers/Home/Home'
-import RouterTest from '../containers/RouterTest/RouterTest'
 import Android from '../containers/Android/Android'
-import IOS from '../containers/IOS/IOS'
+import IOS from '../containers/IOS/iOS'
+import Search from '../containers/Search/Search'
+import DayContent from '../containers/DayContent/DayContent'
+import Gallery from '../containers/MeiZhi/Gallery'
 
-const Search = asyncComponent(() => import(/* webpackChunkName: "search" */ "../containers/Search/Search"));
-const DayContent = asyncComponent(() => import(/* webpackChunkName: "search" */ "../containers/DayContent/DayContent"));
-const Gallery = asyncComponent(() => import(/* webpackChunkName: "search" */ "../containers/MeiZhi/Gallery"));
-const Special = asyncComponent(() => import(/* webpackChunkName: "search" */ "../containers/IOS/IOS"));
-
-@connect(
-    state => {
-        return {...state.global}
-    },
-    dispatch => bindActionCreators(global, dispatch)
-)
-export default class CRouter extends React.Component {
-
-    componentDidMount() {
-        window.addEventListener('hashchange', () => {
-            this.props.currentAnimate('normal')
-        })
-    }
+const history = createHistory();
+export default  class CRouter extends React.Component {
 
     render() {
         return (

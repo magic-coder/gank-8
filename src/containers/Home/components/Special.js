@@ -4,8 +4,8 @@
 import React from 'react'
 
 /*files*/
-const zht_1 = require('./files/zht1.jpg')
-const zht_2 = require('./files/zht2.jpg')
+const zht_1 = require('./files/zht1.jpg');
+const zht_2 = require('./files/zht2.jpg');
 
 const Special = () => {
     return (

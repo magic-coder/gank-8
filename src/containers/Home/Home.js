@@ -8,16 +8,14 @@ import PropTypes from 'prop-types'
 //关于import什么时候用{}，什么时候不用大括号，通过那个插件或者组件是否包含default来判断，如果包含，则不需要{}
 
 /*actions*/
-import * as home from 'actions/home'
-import * as global from 'actions/global'
+import {getHistory} from '../../actions/global'
 
 /*component*/
-import Header from './components/Header'
 import ContentItem from './components/ContentItem';
-/*files*/
-const search = require('./files/search.svg');
-import {Row, Col,Spin, Pagination, BackTop} from 'antd';
+import {Row, Col, Pagination, BackTop} from 'antd';
 import './styles/home.less'
+
+/*files*/
 
 /**
  * connect中间件
@@ -26,12 +24,10 @@ import './styles/home.less'
  * dispatch用法：（单个action）bindActionCreators(navActions, dispatch)，（多个action）bindActionCreators({...action1, ...action2}, dispatch)
  */
 
-@connect(
-    state => ({...state.home}),
-    dispatch => bindActionCreators({...home, ...global}, dispatch)
-)
-export default class Home extends React.Component {
-
+class Home extends React.Component {
+    state = {
+        datas: [],
+    };
     constructor(props) {
         super(props);
         //构造函数用法
@@ -42,20 +38,23 @@ export default class Home extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(" Home nextProps", nextProps);
-
+        const {historyArray} = nextProps;
+        if (!window.isEmpty(historyArray) && !window.isEmpty(historyArray.data)) {
+            this.setState({
+                datas: historyArray.data
+            });
+        }
     }
 
     componentWillMount() {
-        const {historyArray} = this.props;
+        const historyArray = this.state.datas;
         if (historyArray.length === 0) {
-            this.props.getHistory(1);
-
+            this.props.getHistory(1, "historyArray");
         }
     }
 
     onChange(page) {
-        this.props.getHistory(page);
+        this.props.getHistory(page, "historyArray");
         this.refs.myBackTop.scrollToTop();
     }
 
@@ -70,11 +69,11 @@ export default class Home extends React.Component {
             state: data// 相当于post
         };
         this.props.history.push(path);
-        // console.log("push", path);
     }
 
     render() {
-        const {historyArray} = this.props;
+        const historyArray = this.state.datas;
+        console.log("historyArray", historyArray);
         let size = historyArray.length / 5;
         const special = [];
         for (let i = 0; i < size; i++) {
@@ -83,7 +82,7 @@ export default class Home extends React.Component {
         const imgsTags = special.map(v1 => (
             v1.map(elem => {
                 return (
-                    <div className="gutter-box" onClick={() => this.openSpecial(v2)}>
+                    <div className="gutter-box" onClick={() => this.openSpecial(elem)}>
                         <ContentItem
                             _id={elem._id}
                             title={elem.title}
@@ -120,8 +119,19 @@ export default class Home extends React.Component {
         )
     }
 }
+
 Home.propTypes = {
     historyArray: PropTypes.array.isRequired,
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired
 };
+
+const mapStateToProps = state => {
+    const {location = {}, historyArray = {data: []}} = state.global;
+    return {historyArray, location};
+};
+const mapDispatchToProps = dispatch => ({
+    getHistory: bindActionCreators(getHistory, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

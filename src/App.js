@@ -7,15 +7,14 @@ import {Layout, Button} from 'antd';
 import SiderCustom from './containers/SiderCustom';
 import HeaderCustom from './containers/HeaderCustom';
 
-const {Content, Footer} = Layout;
 /*component*/
-import Header from './containers/Home/components/Header'
 /*
  全局导入less
  */
 import './app.less'
 
-import {receiveData} from 'actions/global'
+import {receiveData} from './actions/global'
+const {Content, Footer} = Layout;
 
 // @connect(
 //     state => ({...state.global}),
